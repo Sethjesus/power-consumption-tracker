@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: 檢出存儲庫
         uses: actions/checkout@v3
-        with:
-          persist-credentials: false  # 禁止默認憑據，避免 push 失敗
 
       - name: 設置 Python
         uses: actions/setup-python@v3
@@ -27,10 +25,10 @@ jobs:
       - name: 執行 Python 腳本
         run: python script.py
 
-      - name: 提交 JSON 和 HTML 檔案
+      - name: 提交 JSON 和 HTML 結果
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add generated_data.json power_consumption.html
-          git commit -m "Auto-update JSON and HTML report"
-          git push https://github.com/Sethjesus/power-consumption-tracker.git HEAD:main
+          git add devices_data.json power_consumption.html
+          git commit -m "Auto-update JSON & HTML file"
+          git push
