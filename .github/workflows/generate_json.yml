@@ -1,0 +1,35 @@
+name: Generate JSON from CSV
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'  # 每天執行一次 (UTC 00:00)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Python Script
+        run: python script.py
+
+      - name: Commit and Push Generated JSON
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add devices_data.json
+          git commit -m "Auto-generate JSON from CSV"
+          git push
