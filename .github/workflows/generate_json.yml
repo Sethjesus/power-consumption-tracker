@@ -1,4 +1,4 @@
-name: Generate JSON from CSV
+name: Generate JSON & HTML from CSV
 
 on:
   push:
@@ -25,10 +25,10 @@ jobs:
       - name: 執行 Python 腳本
         run: python script.py
 
-      - name: 提交 JSON 和 HTML 結果
+      - name: 提交 JSON 和 HTML
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add devices_data.json power_consumption.html
-          git commit -m "Auto-update JSON & HTML file"
+          git commit -m "Auto-update JSON & HTML"
           git push
